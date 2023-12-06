@@ -1,0 +1,20 @@
+# documentation: https://help.github.com/en/articles/workflow-syntax-for-github-actions
+name: build paper
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v2
+      with:
+        root_file: main.tex
+        args: "-output-directory=build -pdf"
+        latexmk_shell_escape: true
+    - name: Store produce PDFs
+      uses: actions/upload-artifact@v2
+      with:
+        name: EasyBuild-ISC-tutorial
+        path: ./build/main.pdf

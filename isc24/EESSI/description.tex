@@ -1,0 +1,140 @@
+
+%\comment{Upload detailed description of the tutorial content (2.5 pages maximum)
+%- Overview and goals of the tutorial (takeaways for the audience)\\
+%- Detailed outline of the tutorial\\
+%- Description of the hands-on if applicable\\
+%- URLs to sample slides and other material\\
+%Upload Resume or CV of each presenter, including a list of the recently taught courses or tutorials (2 pages maximum per presenter). Please upload one pdf file that includes all presenters CVs.}
+
+\subsection*{Overview and Goals}
+
+Application developers, HPC sites, and end users around the world
+spend significant amounts of time to create and verify optimised software installations. Surveys conducted at the
+\emph{``Getting Scientific Software Installed''} Birds-of-a-Feather sessions that we (co-)organised at both SC and ISC reveal that this (still) involves a significant amount of `manual' effort.
+% (and thus time/manpower).
+In the SC'19 survey,
+%In the most recent survey (SC'19),
+less than half of the respondents consistently automate software installation,
+and only ~25\% automate environment module file generation.
+%and only ~25\% automatically generate environment module files consistently, as opposed to composing them manually.
+%Although the problems that arise with installing scientific software are ubiquitous,
+Despite these ubiquitous problems,
+there is still inadequate collaboration
+between HPC sites to date: less than 30\% of respondents answered `yes' when asked whether they
+work together with other HPC sites regarding the topic of software installation, even in most recent surveys.
+%Since EasyBuild can help relieve these burdens and foster collaboration, a tutorial introducing this tool is highly relevant to ISC'22 attendees.
+Hence, an EasyBuild tutorial is very relevant to ISC'23 attendees as this tool helps relieve these burdens and fosters collaboration.
+% KH: updated to use survey results from SC19 (Tue Feb 11th 17:43 CET)
+%\comment{MG: Are these numbers still OK? I seem to remember that at SC'19 more people said that they were using Spack or EB.}
+%\comment{KH: 25\% Spack, 15\% EasyBuild, see slide 4 in \url{http://easybuilders.github.io/easybuild/files/SC19_GSSI_BoF/GSSI_SC19_Survey_results.pdf}; w.r.t. collaboration, it's about 33\% if you add "yes" and "sometimes" (see slide 10)}
+
+The main goal of this tutorial is to facilitate the daily work of its attendees.
+% after the conference.
+It will introduce EasyBuild as a tool for providing optimised, reproducible, multi-platform scientific software installations in a consistent, efficient, and user-friendly manner. We will explain the scope of EasyBuild and show attendees how to get started,
+%(installation, configuration, basic usage, etc.),
+how to tap into some advanced features,
+showcase its use on some large-scale systems,
+%showcase how the tool is used to maintain a scientific software stack on large-scale systems,
+and show how to engage with the EasyBuild community.
+
+EasyBuild is used by well over 100 HPC sites worldwide (incl. JSC, CSCS, the Digital Research Alliance of Canada, LUMI, \ldots),
+has over 125 unique contributors on a yearly basis,
+%about 300 subscribers to its mailing list,
+and an active Slack channel with about 700 members.
+It has reached a critical mass with a welcoming and active community guaranteeing continued development and support, and a
+growing user community.
+%It has reached critical mass, a point where a large user base means more features and software being added regularly, with an accelerated adoption rate, and a welcoming and engaging community.
+Attendance at the yearly EasyBuild User Meetings has been growing steadily, with close to 100 attendees at the 7th (virtual) edition in Jan'22.
+As such, we strongly believe that EasyBuild, and the community behind it, will have a positive impact on the attendees' work.
+The tutorial content is designed to help with getting started quickly and benefit from EasyBuild right after the conference.
+%The tutorial content will be designed to help the attendees getting started with the tool, so they can immediately benefit from it after the conference.
+
+%By also covering some of the more advanced features (such as packaging builds, rpath-ing, user-space installations to complement/extend system installations) we want to convince more people to not only start using these tools, but also to actively join their (largely overlapping) respective communities, and maybe even to contribute back themselves in one way or another. We want to explicitly highlight the community-oriented aspects of both tools:
+
+%\paragraph{Target audience}
+%This tutorial is intended for HPC and domain support teams, application developers, and end-users of HPC systems. EasyBuild can help relieve attendees from the time-consuming and tedious tasks involved with installing scientific software stacks, by automating software installations and module file generation, and by serving as an excellent platform for collaboration with other HPC sites and support teams. It can also be utilized by end users and developers to manage a (partial) software stack themselves in an efficient way. Lmod provides end users with a powerful yet flexible way of managing their working environment through various advanced features that are missing in the well-established Tcl-based environment modules tool, while providing a responsive user interface by supporting an easily-maintained module files cache.
+
+%\paragraph{Content Level}
+%50\% introductory, 30\% intermediate, 20\% advanced
+
+%\paragraph{Prerequisites}
+%Basic knowledge of using a Unix-style command line interface is desirable. Some familiarity with the issues that arise when compiling/installing scientific software and using environment modules is helpful, though not strictly necessary. A virtual machine image or access to a prepared environment on AWS (Amazon Web Services) will be provided for the hands-on, but no prior knowledge is required to use it.
+
+%\paragraph{Tutorial content}
+%We will start of by sketching the traditional way in which HPC support teams deal with installing software, and outline the problems with it. Based on these observations, we will motivate the need for tools that support automation and offer a simple yet powerful user interface to efficiently tackle these problems, and explain how EasyBuild and Lmod fulfill these requirements.
+
+The tutorial covers installing and configuring EasyBuild, and basic usage through hands-on demos and guided examples. It showcases the main features and capabilities, and also briefly describes an alternative hierarchical environment modules organisation supported by EasyBuild and its benefits and implications.
+%The installation and configuration of EasyBuild will be covered, and basic usage will be presented through demos and guided examples. The main features and capabilities will be outlined and explained, and we will briefly describe an alternative approach to organising environment module files in a hierarchical layout, present the benefits and implications of this approach, and show how EasyBuild supports this.
+Next we cover how to add support for new software (versions) to EasyBuild, how EasyBuild can be customized to adhere to site policies, and how software installations can be performed in distributed manner.
+We also compare EasyBuild with similar projects to help attendees decide which is the best approach for them.
+%The second part of the tutorial will cover some advanced topics including adding support to EasyBuild for building and \emph{TODO MISSING PART}
+%In this part we also compare with some competing projects  so attendees can decide whether EasyBuild is the best choice for their use case.
+Extensive guided examples help consolidate the theory in real knowledge.
+%Special emphasis will be put on the guided examples, where the lessons can be consolidated in real knowledge.
+Finally, three EasyBuild case studies are presented.
+
+The \textbf{European Environment for Scientific Software Installations (EESSI)} project is a collaborative project between different partners in the HPC community supported by the MultiXscale EuroHPC Centre of Excellence to build a common stack of optimised scientific software installations for everything from laptops to big HPC systems and cloud infrastructures. The project uses EasyBuild to install software on top of a compatibility layer, and uses CernVM-FS to distribute the software installations to clients.
+
+At the \textbf{J\"ulich Supercomputing Centre}, EasyBuild is used on multiple supercomputers and prototypes, including JUWELS and JURECA. We cover the highly customized setup used at JSC, the concept of \emph{build stages} used to structure the module
+system, and tools like EasyBuild hooks, a developer module and user installations, which facilitate collaboration on the software stack by over 30 experts.
+
+\textbf{LUMI}, a EuroHPC JU pre-exascale system, is an HPE Cray EX system with AMD Instinct GPUs.
+We will outline why EasyBuild was selected for LUMI, and explain how
+the setup is focused on empowering users to create their own project software environment on top of the main stack,
+with the help of a distributed support team. In addition, we will show how EasyBuild
+integrates with the HPE Cray Programming Environment, and cover why and how the LUMI project maintains
+its own versions of toolchains and develops many LUMI-specific EasyBuild build recipes.
+
+%We will conclude by showing how EasyBuild is used in large production setups, and provide pointers on how to get in touch with its (growing) community for getting help or to contribute back. Additionally, competing projects will be briefly introduced and compared to EasyBuild, so the attendees can decide whether EasyBuild is the best choice for their use case.
+% KH: OK, fixed \comment{MG: ``with the respective communities'' $\rightarrow$ ``with its (growing) user community''?}
+
+%\paragraph{Expected attendance}
+%Previous events related to the tutorial topic we (co-)organized were well attended. The \emph{``Getting Scientific Software Installed"} Birds-of-a-Feather sessions at SC'13, ISC'14 and SC'14 were well attended, with 74, 40, and over 100~attendees, respectively. The 1st HPC User Support Tools (half-day) workshop we co-organized at SC'14, where a paper on EasyBuild and Lmod entitled \emph{``Modern Scientific Software Management Using EasyBuild and Lmod"} was presented, was attended by about 60 people. The recent 2nd EasyBuild User Meeting had 35 attendees as well as remote participants in the US, Canada, Europe and Australia {\bf not verified!}.
+
+%Based on this, the relevance of the topic to SC'17 attendees (see above), and the feedback we get from the EasyBuild/Lmod communities and other interested parties, we expect this tutorial to be well attended too. We strongly believe an attendance of 40-50 people is likely.
+
+%\paragraph{Ensuring cohesion}
+%We will provide a single cohesive set of slides that covers the entire tutorial. This will be backed up by extensive documentation on the EasyBuild and Lmod documentation pages (\url{http://easybuild.readthedocs.io}, \url{http://lmod.readthedocs.io}). Additionally, a prepared virtual machine image---or access to an AWS instance---will be made available, which will be used during the tutorial for the hands-on sessions.
+
+
+%\paragraph{Previous talks and tutorials, and update for SC'17}
+EasyBuild has been presented at SC and ISC BoFs (\emph{Getting Scientific Software Installed} in SC'13, SC'14, ISC'14,
+SC'15, SC'18, and SC'19) and Workshops (PyHPC'12, HUST'14, and HUST'16). This tutorial was also presented
+(fully online, half-day) at ISC'21 which was well attended with over 25 participants and in-person (half-day) at ISC'22 with about 20 participants.
+The feedback and attendance has always been positive, which is the primary motivation for this tutorial proposal. The organisers have been actively training user support staff and administrators on EasyBuild in various events in the US and Europe since 2011.
+
+The organisers have successfully worked together on a number of papers, presentation materials,
+and hands-on tutorials on the topic under consideration several times in recent years.
+A common template
+%will be created to guarantee
+will guarantee
+a coherent visual appearance, and using our previous experience, we will provide high-quality content and materials. Moreover, the presenters have experience in organising tutorials in the context of SC and ISC, which helps to understand
+%what is expected
+expectations
+and how to structure the material
+to help ISC attendees to get the most out of it.
+
+%\paragraph{Sample slides}
+
+%\begin{itemize}
+%\item \url{http://sourceforge.net/projects/lmod/files/Lmod_tutorial_sea_2014.pdf}
+%\item \url{http://users.ugent.be/~kehoste/Lmod-intro_20150209.pdf}
+%\item \url{http://users.ugent.be/~kehoste/EasyBuild-intro-Basel_20150209.pdf}
+%\item \url{http://easybuild.readthedocs.io/en/latest/Writing_easyconfig_files.html}
+%\item \url{http://hust16.github.io/presentations/eb-hust16.pdf}
+%\end{itemize}
+
+%\comment{MG: According to the RFT, they expect info regarding the target audience, percentage of content split as beginner, intermediate, advanced, and estimated number of attendees (with short explanation if applicable).  However, I have no clue on the latter...}
+%\comment{KH: Based on attendance at user meetings (and Spack tutorials), I think an estimated attendance of 50-100 people at ISC'19 is reasonable.
+% Spack has about 20-30 attendees at last years ISC I think (but Spack is more US focused), while at SC they had 50-75 attendees I think.}
+%\comment{MG: 50-100 is a lot for ISC, I would say. The overall number of tutorial attendees is much lower than at SC, and the audience is also a bit different. I would probably say 20-50 -- and if the room in the end is overfull...}
+%\comment{KH: OK for 20-50, let's prove ourselves wrong. ;) }
+
+
+%KH: So you would go with 20-50? Is that ambitious enough?
+%MG: I think so. Attendance is lower than at SC. And more business people...
+%KH: I'm OK with 20-50, so let's go with that...
+%MG: With my initial comment, I wanted to point out that these sections (target audience, percentage, etc.) are expected as part of the tutorial proposal...  So where should we put it?
+%KH: the form ask you to pick 20-50 or 50-80, I don't think it needs to go in the PDF (but we can add it there, sure). After the "Travel support" section?
+%MG: Well, at some places it suggests to copy from the proposal ;)
+%KH: Let's add a small "Expected attendance" section, mentioning 20-50 + motivation for that number (based on attendance at user meetings (50+), PRACE tutorial ~30 I think in 2017), etc.)
