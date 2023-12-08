@@ -8,7 +8,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
     - name: Compile LaTeX document
-      uses: xu-cheng/latex-action@v2
+      uses: xu-cheng/latex-action@f1ca82cbed861b3534e2997dd584944f55b884ed
       with:
         work_in_root_file_dir: isc24/EESSI/
         root_file: main.tex
