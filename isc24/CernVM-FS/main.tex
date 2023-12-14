@@ -1,0 +1,186 @@
+\documentclass[a4paper,11pt]{article}
+
+% Allow coloured url links and hyperlinked table of contents etc....
+\usepackage[colorlinks=true, linkcolor=gray,  urlcolor=blue, citecolor=black]{hyperref}
+\usepackage{authblk}
+\usepackage{todonotes}
+
+\usepackage{enumitem}
+\setlist{itemsep=2pt, parsep=2pt}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.6in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headheight}{0.0in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+
+\newcommand{\ignore}[1]{}
+
+\newif\ifremark
+\long\def\remark#1{
+\ifremark%
+        \begingroup%
+        \dimen0=\columnwidth
+        \advance\dimen0 by -1in%
+        \setbox0=\hbox{\parbox[b]{\dimen0}{\protect\em #1}}
+        \dimen1=\ht0\advance\dimen1 by 2pt%
+        \dimen2=\dp0\advance\dimen2 by 2pt%
+        \vskip 0.25pt%
+        \hbox to \columnwidth{%
+                \vrule height\dimen1 width 3pt depth\dimen2%
+                \hss\copy0\hss%
+                \vrule height\dimen1 width 3pt depth\dimen2%
+        }%
+        \endgroup%
+\fi}
+
+\remarktrue
+%%\remarkfalse
+
+\newenvironment{myenumerate}
+{ \begin{enumerate}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}     }
+{ \end{enumerate}                  } 
+
+\renewcommand{\baselinestretch}{0.95}
+\newcommand{\comment}[1]{\todo[inline]{#1}}
+
+
+\begin{document}
+
+%===============================================================================
+
+\title{
+    \textbf{\LARGE Efficient Software Distribution on HPC Infrastructure: an Introduction to CernVM-FS}\\
+\vspace{2mm}{\Large \emph{ISC'24 tutorial proposal}}
+}
+
+\date{}
+
+\author[1]{Kenneth Hoste}
+\author[2]{Alan \'O Cais}
+\author[3]{Bob Dr\"oge}
+\author[4]{Laura Promberger}
+\author[4]{Valentin V\"olkl}
+\author[4]{Jakob Blomer}
+\affil[1]{HPC-UGent, Ghent University, Belgium}
+\affil[2]{Centre Européen de Calcul Atomique et Moléculaire (CECAM), Switzerland}
+\affil[3]{University of Groningen, Netherlands}
+\affil[4]{CERN, Switzerland}
+
+\renewcommand\Authands{ and }
+
+\maketitle
+
+%===============================================================================
+
+\section*{Abstract}
+\input{abstract.tex}
+
+\paragraph{Topic area:} Other: Large systems administration and scientific software installation
+
+\paragraph{Keywords:} Computing Infrastructure, Containers in HPC, Reproducibility, Scientific Software Development, System Software \& Runtime Systems
+
+
+%===============================================================================
+
+\newpage
+ 
+%===============================================================================
+
+%\section*{Scope and Tools}
+%
+%\subsection*{Scope}
+%
+%Building (scientific) software from source code is preferred in an HPC setting
+%where performance is critical. Due to increasing diversity of HPC users, the adoption of community codes and the expansion of the typical application software stack (e.g., libraries for MPI, linear algebra functions, solvers, I/O libraries, hardware abstraction layers, accelerator frameworks,\ldots) delivering a reliable, optimised build becomes increasingly complex. Further complicating matters is that application users often require reproducibility of this same software stack between architectures since they may be using a number of different HPC sites at once.
+%
+%Ensuring an optimally performing build of an application across architectures places an enormous burden firstly on the development team of the application itself and then on HPC user support teams to reproduce this build in their own unique environments. Application users and developers also frequently have customisations of applications for their own use case, requiring them to also shoulder this burden across multiple sites.
+%
+%In addition, an HPC workflow or set of HPC tools can easily rely on conflicting versions or configurations of the same libraries. An adequate solution for this (in common use in HPC environments) is the concept of module files. However, most tools available for consuming these module files and setting up the user environment based on them have their shortcomings and problems, and are frequently no longer actively maintained or developed for increasingly complex hardware environments.
+%
+%This tutorial covers two open-source tools that aim to tackle these issues: \textbf{EasyBuild}, a software build and installation framework that can address the needs of the developer, the user and the user support teams; and \textbf{Lmod}, a modern and
+%feature-rich modules tool.
+%
+%\subsection*{EasyBuild (\url{http://hpcugent.github.io/easybuild})}
+%
+%\textit{EasyBuild} eases the often difficult task of building and installing (scientific)
+%software, by providing a framework with which this task can be automated with a limited
+%amount of work. It also serves as a platform for collaboration, enabling a community
+%that works together by sharing implementations of build-and-install procedures and
+%specifications. It can be used to install multiple versions of applications and
+%libraries side-by-side, by installing them to a dedicated installation prefix and generating
+%corresponding module files. EasyBuild features a plug-in architecture w.r.t.\
+%support for software packages, compilers, and libraries (MPI, BLAS, LAPACK, etc).
+%
+%The EasyBuild framework is written in Python, and provides functionality commonly
+%required when building and installing software. Generic or application-specific
+%build-and-install procedures can be implemented in a concise way, and can be easily shared with
+%others. As such, it is a very powerful and valuable tool for both user support teams
+%and end users of HPC infrastructure, to efficiently deal with the often error-prone
+%and time-consuming task of getting scientific software installed (correctly).
+%
+%\subsection*{Lmod (\url{https://www.tacc.utexas.edu/research-development/tacc-projects/lmod})}
+%
+%\textit{Lmod} is a modern replacement for the well-established (Tcl-based) Environment
+%Modules system.  Its main goal is to provide users easy access
+%to their (scientific) software stack, without hindering experts.  Lmod
+%implements the system admins (or in our case the EasyBuild) point of view about how the software
+%stack and its components relate to each other.  It is the handshake
+%between the software stack installers and end users, and delivers to the users
+%the ability to configure and manage their working software stack
+%while benefiting from the hard work and disciplined building of the
+%system.  Lmod is feature-rich, well supported, continuously enhanced,
+%mostly compatible with the traditional Tcl-based environment modules tool, and is backed
+%by a vibrant community.
+%
+%Lmod like other user environment management systems allows users to
+%``load'' modules of their choosing to access compilers, MPI stacks,
+%applications and libraries and also unload/reload as necessary to
+%meet their software needs, next to other more advanced features that make
+%it a powerful and flexible alternative to other established module tools.
+%
+%
+%\newpage
+%\setcounter{section}{1}
+\section{Detailed Description of the Tutorial}
+\input{description.tex}
+
+\subsection*{Target audience}
+\input{audience.tex}
+%\newpage
+
+\input{outline.tex}
+%\newpage
+
+\subsection*{Hands-on and presentation materials}
+\input{handson.tex}
+
+\section{Logistics}
+
+\subsection*{Content level}
+60\% beginner, 40\% intermediate
+
+\subsection*{Prerequisites}
+\input{prerequisites.tex}
+
+\subsection*{Expected attendance}
+\input{attendance.tex}
+
+\subsection*{Travel support}
+\input{travelsupport.tex}
+\newpage
+
+\section{CVs}
+\input{cvs.tex}
+%\newpage
+
+%\section{Release Statement}
+%\input{release.tex}
+%\newpage
+
+
+\end{document}
